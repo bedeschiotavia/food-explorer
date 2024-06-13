@@ -1,4 +1,4 @@
-class DishController {
+class DishesController {
     index(request, response) {
       return response.json(["Produto 1", "Produto 2", "Produto 3"]);
     }
@@ -9,4 +9,4 @@ class DishController {
       }
   }
   
-  module.exports = DishController;
+  module.exports = DishesController;
