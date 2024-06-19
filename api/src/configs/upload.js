@@ -13,9 +13,9 @@ const MULTER = {
       const fileName = `${fileHash}-${file.originalname}`
 
       return callback (null, fileName)
-    }
-  })
-}
+    },
+  }),
+};
 
 module.exports = {
   TMP_FOLDER,

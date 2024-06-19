@@ -44,7 +44,7 @@ class DishesController {
   }
 
   async index(request,response){
-    const { title, tags } = request.query;
+    const { title, tags } = request.query; 
 
     let dishes;
 
