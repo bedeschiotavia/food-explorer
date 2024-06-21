@@ -2,10 +2,12 @@ import { useState } from "react";
 import foodexplorerLogo from "../../assets/foodesxplorer-mobilelogo.png";
 import foodexplorerAdminLogo from "../../assets/logo-foodexplorer-admin.svg";
 
-import { Button } from "../Button";
+import { Button } from '../Button';
 import { ButtonText } from "../ButtonText";
 import { Input } from "../Input";
 import { MobileMenu } from "../MobileMenu";
+
+import { Link } from 'react-router-dom';
 
 import { ButtonWrapper, Container, InputWrapper, Logo, LogoMobile, LogoWrapper, Logout, NavContainer } from "./styles";
 
@@ -29,10 +31,10 @@ export function Header () {
 
         <LogoWrapper>
           <Logo>
-            <img src={foodexplorerAdminLogo} alt="foodexplorer logo" />
+            <Link to="/"><img src={foodexplorerAdminLogo} alt="foodexplorer logo" /></Link>
           </Logo>
           <LogoMobile>
-            <img src={foodexplorerLogo} alt="foodexplorer logo" />
+            <Link><img src={foodexplorerLogo} alt="foodexplorer logo" /></Link>
           </LogoMobile>
           <span>admin</span>
         </LogoWrapper>
@@ -42,7 +44,7 @@ export function Header () {
         </InputWrapper>
 
         <ButtonWrapper>
-          <Button title="New dish"/>
+          <Link to="/new"><Button title="New Dish"/></Link>
           {/* <Button icon={Receipt} title="Orders" cartCount={3} /> */}
         </ButtonWrapper>
 

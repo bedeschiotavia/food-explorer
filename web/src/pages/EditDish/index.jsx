@@ -1,5 +1,7 @@
 import { CaretDown, CaretLeft, UploadSimple } from '@phosphor-icons/react'
 
+import { Link } from 'react-router-dom'
+
 import { Button } from '../../components/Button'
 import { ButtonText } from '../../components/ButtonText'
 import { DishItem } from '../../components/DishItem'
@@ -16,7 +18,9 @@ export function EditDish() {
     <>
       <Header/>
       <Container>
-        <ButtonText icon={CaretLeft} title="back"/>
+        <Link to="/">
+          <ButtonText icon={CaretLeft} title="back"/>
+        </Link>
         <h1>Edit Dish</h1>
         <form>
           <div className="row">

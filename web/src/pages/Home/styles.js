@@ -4,11 +4,11 @@ import { DEVICE_BREAKPOINTS } from "../../styles/deviceBreakpoints"
 
 export const Container = styled.div`
   max-width: 1122px;
-  margin: 5rem auto;
+  margin: auto;
   padding: 1.5rem;
 
   @media (min-width: ${DEVICE_BREAKPOINTS.MD}){
-    padding: 0 3.5rem;
+    padding: 0 3.5rem 7rem 3.5rem;
   }
 `
 

@@ -3,6 +3,8 @@ import ravanelloSalad from "../../assets/ravanello-salad.png"
 
 import { CaretLeft, Minus, Plus, Receipt } from "@phosphor-icons/react"
 
+import { Link } from 'react-router-dom'
+
 import { Button } from "../../components/Button"
 import { ButtonText } from "../../components/ButtonText"
 import { Footer } from "../../components/Footer"
@@ -20,7 +22,9 @@ export function SingleDish() {
       <Header/>
       
       <Container>
-        <ButtonText icon={CaretLeft} title="back"/>
+        <Link to="/">
+          <ButtonText icon={CaretLeft} title="back"/>
+        </Link>
         <DishContainer>
           <img src={ravanelloSalad}/>
           <DishDetails>

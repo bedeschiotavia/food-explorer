@@ -69,7 +69,7 @@ export const LogoMobile = styled.div `
   }
 
   @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
-    > img {
+    > a img {
       display:none;
     }
   }
@@ -89,6 +89,7 @@ export const ButtonWrapper = styled.div`
 
   @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
     display:block;
+
   }
 `
 

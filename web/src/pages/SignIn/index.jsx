@@ -1,6 +1,8 @@
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 
+import { Link } from 'react-router-dom';
+
 import { Container } from "./styles";
 
 import foodexplorerLogo from '../../assets/logo-foodexplorer.svg';
@@ -29,7 +31,9 @@ export function SignIn() {
           </label>
           <Button title="login"/>
 
-          <a href="">Create account</a>
+          <Link to="/register">
+            Create account
+          </Link>
         </form>
       </Container>
     </>

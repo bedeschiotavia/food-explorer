@@ -8,6 +8,8 @@ import { Header } from '../../components/Header'
 import { Input } from '../../components/Input'
 import { Textarea } from '../../components/Textarea'
 
+import { Link } from 'react-router-dom'
+
 import { Container, WrapperFileInput, WrapperTag } from './styles'
 
 export function NewDish() {
@@ -16,7 +18,9 @@ export function NewDish() {
     <>
       <Header/>
       <Container>
-        <ButtonText icon={CaretLeft} title="back"/>
+        <Link to="/">
+          <ButtonText icon={CaretLeft} title="back"/>
+        </Link>
         <h1>New Dish</h1>
         <form>
           <div className="row">
