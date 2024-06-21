@@ -23,9 +23,6 @@ export const NavContainer = styled.div `
   @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
     gap:1rem;
 
-    > button {
-      display:none;
-    }
   }
 `
 

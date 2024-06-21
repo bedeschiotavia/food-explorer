@@ -7,7 +7,9 @@ import { ButtonText } from "../ButtonText";
 import { Input } from "../Input";
 import { MobileMenu } from "../MobileMenu";
 
-import { Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/auth';
+
+import { Link, useNavigate } from 'react-router-dom';
 
 import { ButtonWrapper, Container, InputWrapper, Logo, LogoMobile, LogoWrapper, Logout, NavContainer } from "./styles";
 
@@ -17,6 +19,14 @@ import { List, MagnifyingGlass, SignOut } from "@phosphor-icons/react";
 
 export function Header () {
   const [menuIsOpen, setMenuIsOpen] = useState(false)
+
+  const { signOut } = useAuth()
+  const navigate = useNavigate()
+
+  function handleSignOut(){
+    navigate("/")
+    signOut()
+  }
 
   return(
     <>
@@ -47,8 +57,8 @@ export function Header () {
           <Link to="/new"><Button title="New Dish"/></Link>
           {/* <Button icon={Receipt} title="Orders" cartCount={3} /> */}
         </ButtonWrapper>
-
-        <Logout>
+        
+        <Logout onClick={handleSignOut}>
           <SignOut/>
         </Logout>
       </NavContainer>
