@@ -1,22 +1,24 @@
 /* eslint-disable react/prop-types */
-import { Plus } from '@phosphor-icons/react'
+import { Plus, X } from '@phosphor-icons/react'
 
 import { Container } from './styles'
 
-export function DishItem({ value, ...rest }) {
+export function DishItem({ isNew = false, value, onClick, ...rest }) {
   return (
-    <Container>
+    <Container isNew={isNew}>
       <input
         type="text"
         value={value}
+        readOnly={!isNew}
         {...rest}
       />
 
       <button
         type="button"
-        className="button-add"
+        onClick={onClick}
+        className={isNew ? 'button-add' : 'button-delete'}
       >
-        <Plus />
+        {isNew ? <Plus /> : <X />}
       </button>
     </Container>
   )

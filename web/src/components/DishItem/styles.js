@@ -18,15 +18,18 @@ export const Container = styled.div`
   }
 
   .button-delete{
-    color: ${({ theme }) => theme.COLORS.TOMATO_100};
+    margin-top:0.2rem;
+    color: ${({ theme }) => theme.COLORS.TINTS_TOMATO_300};
   }
 
   .button-add {
+    margin-top:0.2rem;
     color: ${({ theme }) => theme.COLORS.LIGHT_500};
   }
 
   > input {
-    height: 2.5rem;
+    font-size: 0.9rem;
+    height: 1.9rem;
     width: 100%;
 
     padding: 12px;

@@ -1,4 +1,5 @@
 import { CaretDown, CaretLeft, UploadSimple } from '@phosphor-icons/react'
+import { useState } from 'react'
 
 import { Button } from '../../components/Button'
 import { ButtonText } from '../../components/ButtonText'
@@ -13,6 +14,18 @@ import { Link } from 'react-router-dom'
 import { Container, WrapperFileInput, WrapperTag } from './styles'
 
 export function NewDish() {
+
+  const [tags, setTags] = useState([])
+  const [newTag, setNewTag] = useState("")
+
+  function handleAddTag() {
+    setTags(prevState=>[...prevState, newTag])
+    setNewTag("")
+  }
+
+  function handleRemoveTag(deleted){
+    setTags(prevState=> prevState.filter(tag => tag !==deleted))
+  }
 
   return (
     <>
@@ -51,8 +64,16 @@ export function NewDish() {
             <label>
               Ingredients
               <WrapperTag>
-                <DishItem value="Naan Bread"/>
-                <DishItem placeholder="Add"/>
+                {
+                  tags.map((tag,index) =>(<DishItem key={String(index)}value={tag} onClick={()=>handleRemoveTag(tag)}/>))
+                }
+                <DishItem
+                  isNew
+                  placeholder="New tag"
+                  onChange={e => setNewTag(e.target.value)}
+                  value={newTag}
+                  onClick={handleAddTag}
+                  />
               </WrapperTag>
             </label>
             <label>

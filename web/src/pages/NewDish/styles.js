@@ -114,6 +114,9 @@ export const WrapperTag = styled.div`
   border: none;
 
   @media (min-width: ${DEVICE_BREAKPOINTS.LG}) {
+    width: 800px;
+    flex-wrap:wrap;
     flex-direction:row;
+
   }
 `
