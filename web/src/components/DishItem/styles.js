@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
+export const Container = styled.div.attrs(({ isnew, ...rest }) => ({
+  ...rest,
+  isnew // Ensure `isnew` is passed to the DOM element if necessary
+}))`
   display: flex;
   align-items: center;
 

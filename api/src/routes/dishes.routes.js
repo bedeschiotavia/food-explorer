@@ -14,11 +14,11 @@ const dishImageController = new DishImageController();
 
 dishesRoutes.use(ensureAuthenticated)
 
-dishesRoutes.post("/", dishesController.create);
+dishesRoutes.post("/", upload.single("image"), dishesController.create);
 dishesRoutes.get("/", dishesController.index);
 dishesRoutes.get("/:id", dishesController.show);
 dishesRoutes.delete("/:id", dishesController.delete);
 dishesRoutes.put("/:id", dishesController.update);
-dishesRoutes.patch("/dishimage", upload.single("dishimage"), dishImageController.update)
+dishesRoutes.patch("/dishimage/:id", upload.single("image"), dishImageController.update);
 
 module.exports = dishesRoutes;

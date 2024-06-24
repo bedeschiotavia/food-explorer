@@ -1,24 +1,30 @@
 /* eslint-disable react/prop-types */
-import { Plus, X } from '@phosphor-icons/react'
+import { Plus, X } from '@phosphor-icons/react';
 
-import { Container } from './styles'
+import { Container } from './styles';
 
-export function DishItem({ isNew = false, value, onClick, ...rest }) {
+export function DishItem({ isnew = false, value, onClick, ...rest }) {
+  // Filter out isnew if it's false
+  const inputProps = { ...rest };
+  if (!isnew) {
+    delete inputProps.isnew;
+  }
+
   return (
-    <Container isNew={isNew}>
+    <Container isnew={isnew ? 'true' : undefined}>
       <input
         type="text"
         value={value}
-        readOnly={!isNew}
-        {...rest}
+        readOnly={!isnew}
+        {...inputProps} // Spread the remaining props, excluding isnew if it's false
       />
 
       <button
         type="button"
         onClick={onClick}
-        className={isNew ? 'button-add' : 'button-delete'}
+        className={isnew ? 'button-add' : 'button-delete'}
       >
-        {isNew ? <Plus /> : <X />}
+        {isnew ? <Plus /> : <X />}
       </button>
     </Container>
   )
