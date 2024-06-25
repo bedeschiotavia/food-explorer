@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
 
-
 import { EditDish } from '../pages/EditDish';
 import { Home } from '../pages/Home';
 import { NewDish } from '../pages/NewDish';
@@ -16,5 +15,3 @@ export function AppRoutes() {
     </Routes>
   )
 }
-
-

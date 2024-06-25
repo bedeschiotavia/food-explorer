@@ -1,6 +1,9 @@
 import { CaretDown, CaretLeft, UploadSimple } from '@phosphor-icons/react';
+
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+
+import { useNavigate } from 'react-router-dom';
+
 import { Button } from '../../components/Button';
 import { ButtonText } from '../../components/ButtonText';
 import { DishItem } from '../../components/DishItem';
@@ -8,18 +11,28 @@ import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/Input';
 import { Textarea } from '../../components/Textarea';
+
 import { api } from '../../service/api';
-import { Container, WrapperFileInput, WrapperTag } from './styles';
+
+import { Container, FormFooter, WrapperFileInput, WrapperTag } from './styles';
+
+import placeholder from '../../assets/placeholder-dishimage.png';
 
 export function NewDish() {
+
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [tags, setTags] = useState([]);
   const [newTag, setNewTag] = useState('');
+
   const [image, setImage] = useState(null);
+  const [dishImage, setDishImage] = useState(placeholder);
+
+
   const [buttonDisabled, setButtonDisabled] = useState(true);
+
   const navigate = useNavigate();
 
   useEffect(()=> {
@@ -44,6 +57,16 @@ export function NewDish() {
   function handleRemoveTag(deleted) {
     setTags(prevState => prevState.filter(tag => tag !== deleted));
   }
+
+  function handleSetImage(event){
+    const file = event.target.files[0];
+    setImage(file);
+
+
+    const imagePreview = URL.createObjectURL(file);
+    setDishImage(imagePreview);
+  }
+
 
   function handleBack() {
     navigate(-1);
@@ -83,17 +106,18 @@ export function NewDish() {
     <>
       <Header />
       <Container>
-        <Link to="/">
-          <ButtonText icon={CaretLeft} title="back" onClick={handleBack} />
-        </Link>
+        <ButtonText icon={CaretLeft} title="back" onClick={handleBack} />
         <h1>New Dish</h1>
         <form onSubmit={handleNewDish}>
           <div className="row">
+            <div>
+              <img src={dishImage} alt="Dish Image" width="90" />
+            </div>
             <label>
               Dish Image
               <WrapperFileInput>
                 <UploadSimple /> <span>Upload Image</span>
-                <input id="dishimage" type="file" onChange={e => setImage(e.target.files[0])} />
+                <input id="dishimage" type="file" onChange={handleSetImage} />
               </WrapperFileInput>
             </label>
             <label>
@@ -146,11 +170,16 @@ export function NewDish() {
               onChange={e => setDescription(e.target.value)}
             />
           </label>
-          <Button
-            title="Save"
-            type="submit"
-            disabled={buttonDisabled}
-          />
+          
+            <FormFooter>
+              <Button
+                title="Save"
+                type="submit"
+                disabled={buttonDisabled}
+              />
+            </FormFooter>
+          
+          
         </form>
       </Container>
       <Footer />

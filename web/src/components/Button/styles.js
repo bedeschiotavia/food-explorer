@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { DEVICE_BREAKPOINTS } from "../../styles/deviceBreakpoints";
 
 export const Container = styled.button`
-  background-color: ${({ theme, disabled }) => disabled ? theme.COLORS.GRAY_300 : theme.COLORS.TINTS_TOMATO_100};
+  background-color: ${({ theme, disabled }) => disabled ? theme.COLORS.TINTS_TOMATO_400 : theme.COLORS.TINTS_TOMATO_100};
   color: ${({ theme }) => theme.COLORS.LIGHT_100};
   border: 0;
   height: 2rem;
@@ -14,7 +14,6 @@ export const Container = styled.button`
   justify-content: center;
   gap: 5px;
   cursor: ${({ disabled }) => disabled ? 'not-allowed' : 'pointer'};
-  opacity: ${({ disabled }) => disabled ? 0.5 : 1};
 
   > span {
     font-size: 0.875rem;

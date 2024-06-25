@@ -1,6 +1,6 @@
 import { CaretDown, CaretLeft, UploadSimple } from '@phosphor-icons/react'
 
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { Button } from '../../components/Button'
 import { ButtonText } from '../../components/ButtonText'
@@ -13,14 +13,20 @@ import { Textarea } from '../../components/Textarea'
 import { Container, DishFooter, WrapperFileInput, WrapperTag } from './styles'
 
 export function EditDish() {
+  
+  
+
+  const navigate = useNavigate();
+
+  function handleBack() {
+    navigate(-1);
+  }
 
   return (
     <>
       <Header/>
       <Container>
-        <Link to="/">
-          <ButtonText icon={CaretLeft} title="back"/>
-        </Link>
+        <ButtonText icon={CaretLeft} title="back" onClick={handleBack}/>
         <h1>Edit Dish</h1>
         <form>
           <div className="row">

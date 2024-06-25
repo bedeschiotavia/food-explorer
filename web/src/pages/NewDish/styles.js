@@ -126,3 +126,7 @@ export const WrapperTag = styled.div`
 
   }
 `
+export const FormFooter = styled.div`
+  display: flex;
+  justify-content: end;
+`

@@ -57,6 +57,8 @@ export function Header () {
           <Link to="/new"><Button title="New Dish"/></Link>
           {/* <Button icon={Receipt} title="Orders" cartCount={3} /> */}
         </ButtonWrapper>
+         <Link to="/dish/20">Dish</Link>
+         <Link to="/edit-dish">Edit</Link>
         
         <Logout onClick={handleSignOut}>
           <SignOut/>
