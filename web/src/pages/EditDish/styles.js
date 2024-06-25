@@ -29,7 +29,7 @@ export const Container = styled.div`
 
       position:absolute;
       z-index:999;
-      bottom:20%;
+      bottom:30%;
       right:8%;
     }
   }
@@ -45,7 +45,7 @@ export const Container = styled.div`
     font-size: 1rem;
     font-family: 'Roboto', sans-serif;
 
-    padding: 1.2rem 1.5rem;
+    padding: 1.1rem 1.2rem;
     background-color: ${({ theme }) => theme.COLORS.DARK_900};
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
   
@@ -55,6 +55,11 @@ export const Container = styled.div`
     &:focus {
       border: 1px solid ${({ theme }) => theme.COLORS.LIGHT_400};
       border-radius: 0.43rem;
+      box-shadow:none;
+    }
+
+    &:focus-visible {
+      box-shadow:none;
     }
 
   }
@@ -82,6 +87,7 @@ export const WrapperFileInput = styled.div`
   align-items: center;
   justify-content:start;
   padding: 0.75rem 1.5rem;
+  cursor: pointer;
 
   text-align:left;
   font-family:'Poppins', sans-serif;
@@ -114,7 +120,10 @@ export const WrapperTag = styled.div`
   border: none;
 
   @media (min-width: ${DEVICE_BREAKPOINTS.LG}) {
+    width: 800px;
+    flex-wrap:wrap;
     flex-direction:row;
+
   }
 `
 export const DishFooter = styled.div`

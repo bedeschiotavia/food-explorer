@@ -57,7 +57,7 @@ class DishesController {
   }
 
   async index(request,response){
-    const { title, tags } = request.query; 
+    const { title, tags } = request.query;
 
     let dishes;
 
@@ -94,21 +94,54 @@ class DishesController {
     return response.json(dishesWithTags);
   }
 
-  async update(request,response){
-    const { title, category, price, description } = request.body;
+  async update(request, response) {
+    const { id } = request.params
+    const { title, description, category, price } = request.body
+    let imageFile;
 
-    const { id } = request.params;
+    if (request.file) {
+      const { filename } = request.file;
+      imageFile = await diskStorage.saveFile(filename);
+    }
 
-    const dish = await knex ("dishes")
-      .where({ id })
-      .update({
-        title,
-        category,
-        description,
-        price
-      })
+    console.log(imageFile, request.file);
 
-      return response.json();
+    const dish = await knex("dishes").where({ id }).first()
+
+    if (!dish) {
+      throw new AppError("Dish not found", 404)
+    }
+
+    await knex("dishes").where({ id }).update({
+        title: title ?? dish.title,
+        description: description ?? dish.description,
+        category: category ?? dish.category,
+        price: price ?? dish.price,
+        image: imageFile,
+        updated_at: knex.fn.now(),
+    })
+
+    
+
+    
+
+    // if (tags) {
+    //   await knex("tags").where({ dish_id: id }).delete()
+
+    //   const tagsInsert = tags.map((name) => {
+    //     return {
+    //       dish_id: id,
+    //       name,
+    //       created_by: dish.created_by,
+    //     }
+    //   })
+
+    //   await knex("tags").insert(tagsInsert)
+    // }
+
+    
+
+    return response.json()
   }
 }
   module.exports = DishesController;

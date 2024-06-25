@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
 
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { api } from '../../service/api'
 
 import { CaretLeft, Minus, Plus, Receipt } from "@phosphor-icons/react"
-
-import { useNavigate } from 'react-router-dom'
 
 import { Button } from "../../components/Button"
 import { ButtonText } from "../../components/ButtonText"
@@ -32,7 +30,7 @@ export function SingleDish() {
       setData(response.data);
     }
 
-    fetchDish()
+    fetchDish();
   },[])
 
   function handleBack() {
