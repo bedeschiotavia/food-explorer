@@ -54,107 +54,119 @@ export function Home() {
           </div>
         </Hero>
 
-        <CategoryTitle>Meals</CategoryTitle>
-        <SliderContainer>
-          <Splide
-            options={{
-              rewind: true,
-              gap: '4rem',
-              type: 'loop',
-              perPage: 3,
-              focus: 'center',
-              pagination: false,
-              breakpoints: {
-                640: {
-                  perPage: 2,
-                  arrows: false,
-                },
-                375: {
-                  perPage: 2,
-                  focus: 1,
-                },
-              },
-            }}
-            aria-label="Meals"
-          >
-            {dishes.meals.map((dish) => (
-              <SplideSlide key={String(dish.id)}>
-                <Card
-                  data={dish}
-                  handleDishClick={handleDishClick}
-                />
-              </SplideSlide>
-            ))}
-          </Splide>
-        </SliderContainer>
+        {dishes.meals.length > 0 && (
+          <>
+            <CategoryTitle>Meals</CategoryTitle>
+            <SliderContainer>
+              <Splide
+                options={{
+                  rewind: true,
+                  gap: '4rem',
+                  type: 'loop',
+                  perPage: Math.min(dishes.meals.length, 3), // Ensure perPage is at most the number of meals or 3
+                  focus: 'center',
+                  pagination: false,
+                  breakpoints: {
+                    640: {
+                      perPage: Math.min(dishes.meals.length, 2),
+                      arrows: false,
+                    },
+                    375: {
+                      perPage: Math.min(dishes.meals.length, 2),
+                      focus: 1,
+                    },
+                  },
+                }}
+                aria-label="Meals"
+              >
+                {dishes.meals.map((dish) => (
+                  <SplideSlide key={String(dish.id)}>
+                    <Card
+                      data={dish}
+                      handleDishClick={handleDishClick}
+                    />
+                  </SplideSlide>
+                ))}
+              </Splide>
+            </SliderContainer>
+          </>
+        )}
 
-        <CategoryTitle>Desserts</CategoryTitle>
-        <SliderContainer>
-          <Splide
-            options={{
-              rewind: true,
-              gap: '4rem',
-              type: 'loop',
-              perPage: 3,
-              focus: 'center',
-              pagination: false,
-              breakpoints: {
-                640: {
-                  perPage: 2,
-                  arrows: false,
-                },
-                375: {
-                  perPage: 2,
-                  focus: 1,
-                },
-              },
-            }}
-            aria-label="Desserts"
-          >
-            {dishes.desserts.map((dessert) => (
-              <SplideSlide key={String(dessert.id)}>
-                <Card
-                  data={dessert}
-                  handleDishClick={handleDishClick}
-                />
-              </SplideSlide>
-            ))}
-          </Splide>
-        </SliderContainer>
+        {dishes.desserts.length > 0 && (
+          <>
+            <CategoryTitle>Desserts</CategoryTitle>
+            <SliderContainer>
+              <Splide
+                options={{
+                  rewind: true,
+                  gap: '4rem',
+                  type: 'loop',
+                  perPage: Math.min(dishes.desserts.length, 3),
+                  focus: 'center',
+                  pagination: false,
+                  breakpoints: {
+                    640: {
+                      perPage: Math.min(dishes.desserts.length, 2),
+                      arrows: false,
+                    },
+                    375: {
+                      perPage: Math.min(dishes.desserts.length, 2),
+                      focus: 1,
+                    },
+                  },
+                }}
+                aria-label="Desserts"
+              >
+                {dishes.desserts.map((dessert) => (
+                  <SplideSlide key={String(dessert.id)}>
+                    <Card
+                      data={dessert}
+                      handleDishClick={handleDishClick}
+                    />
+                  </SplideSlide>
+                ))}
+              </Splide>
+            </SliderContainer>
+          </>
+        )}
 
-        <CategoryTitle>Beverages</CategoryTitle>
-        <SliderContainer>
-          <Splide
-            options={{
-              rewind: true,
-              gap: '4rem',
-              type: 'loop',
-              perPage: 3,
-              focus: 'center',
-              pagination: false,
-              breakpoints: {
-                640: {
-                  perPage: 2,
-                  arrows: false,
-                },
-                375: {
-                  perPage: 2,
-                  focus: 1,
-                },
-              },
-            }}
-            aria-label="Beverages"
-          >
-            {dishes.beverages.map((beverage) => (
-              <SplideSlide key={String(beverage.id)}>
-                <Card
-                  data={beverage}
-                  handleDishClick={handleDishClick}
-                />
-              </SplideSlide>
-            ))}
-          </Splide>
-        </SliderContainer>
+        {dishes.beverages.length > 0 && (
+          <>
+            <CategoryTitle>Beverages</CategoryTitle>
+            <SliderContainer>
+              <Splide
+                options={{
+                  rewind: true,
+                  gap: '4rem',
+                  type: 'loop',
+                  perPage: Math.min(dishes.beverages.length, 3),
+                  focus: 'center',
+                  pagination: false,
+                  breakpoints: {
+                    640: {
+                      perPage: Math.min(dishes.beverages.length, 2),
+                      arrows: false,
+                    },
+                    375: {
+                      perPage: Math.min(dishes.beverages.length, 2),
+                      focus: 1,
+                    },
+                  },
+                }}
+                aria-label="Beverages"
+              >
+                {dishes.beverages.map((beverage) => (
+                  <SplideSlide key={String(beverage.id)}>
+                    <Card
+                      data={beverage}
+                      handleDishClick={handleDishClick}
+                    />
+                  </SplideSlide>
+                ))}
+              </Splide>
+            </SliderContainer>
+          </>
+        )}
 
       </Container>
       <Footer />
