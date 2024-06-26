@@ -6,7 +6,7 @@ import { Container, MobileHeader, MobileNav, NavWrapper } from "./styles"
 import { ButtonText } from "../ButtonText"
 import { Input } from "../Input"
 
-export function MobileMenu({menuIsOpen, onCloseMenu}){
+export function MobileMenu({setSearch, menuIsOpen, onCloseMenu}){
 
   return (
     <Container data-menu-is-open={menuIsOpen}>
@@ -17,7 +17,7 @@ export function MobileMenu({menuIsOpen, onCloseMenu}){
           title="Menu"/>
       </MobileHeader>
       <NavWrapper>
-        <Input icon={MagnifyingGlass} placeholder="Search for dishes or ingredients" />
+        <Input icon={MagnifyingGlass} placeholder="Search for dishes or ingredients"  setSearch={setSearch} />
         <MobileNav>
           <a href="">New dish</a>
           <a href="">Logout</a>

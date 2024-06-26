@@ -7,7 +7,7 @@ export function Button({ icon: Icon, title, cartCount, price, disabled, ...rest 
       {Icon && <Icon />}
       <span>{title}</span>
       {cartCount && <span>({cartCount})</span>}
-      {price && <span> ∙ {price}</span>}
+      {price && <span> ∙ {price} €</span>}
     </Container>
   )
 }

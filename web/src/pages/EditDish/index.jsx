@@ -52,6 +52,15 @@ export function EditDish() {
     navigate(-1);
   }
 
+  async function handleRemove(){
+    const confirm = window.confirm("Do you want to remove the dish")
+
+    if(confirm) {
+      await api.delete(`dishes/${params.id}`)
+      navigate("/")
+    }
+  }
+
   function handleSetImage(event) {
     const file = event.target.files[0];
     setImage(file);
@@ -178,7 +187,7 @@ export function EditDish() {
             </label>
           </form>
           <DishFooter>
-            <Button className="btn-dark" title="Exclude Dish" />
+            <Button className="btn-dark" title="Exclude Dish" onClick={handleRemove}/>
             <Button title="Save Changes" onClick={handleUpdateDish} />
           </DishFooter>
         </Container>

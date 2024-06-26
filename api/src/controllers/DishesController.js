@@ -7,8 +7,6 @@ class DishesController {
     const { title, category, price, description, tags } = request.body;
     let imageFile;
 
-    console.log(request.file);
-
     if (request.file) {
       const { filename } = request.file;
       imageFile = await diskStorage.saveFile(filename);
@@ -58,41 +56,59 @@ class DishesController {
     return response.json()
   }
 
-  async index(request,response){
-    const { title, tags } = request.query;
-
+  async index(request, response) {
+    const { title, description, tags } = request.query;
+  
     let dishes;
-
-    if (tags){
+  
+    if (tags) {
       const filterTags = tags.split(',').map(tag => tag.trim());
-
+  
       dishes = await knex("tags")
-        .select ([
+        .select([
           "dishes.id",
           "dishes.title",
+          "dishes.category",
+          "dishes.description",
+          "dishes.price",
+          "dishes.image",
         ])
-        .whereLike ("dishes.title", `%${title}%`)
-        .whereIn("name", filterTags)
         .innerJoin("dishes", "dishes.id", "tags.dish_id")
+        .where(builder => {
+          if (title) {
+            builder.where("dishes.title", 'like', `%${title}%`);
+          }
+          if (description) {
+            builder.orWhere("dishes.description", 'like', `%${description}%`);
+          }
+        })
+        .whereIn("name", filterTags)
         .groupBy("dishes.id")
-        .orderBy("dishes.title")
-
+        .orderBy("dishes.title");
+  
     } else {
       dishes = await knex("dishes")
-        .whereLike ("dishes.title", `%${title}%`)
+        .where(builder => {
+          if (title) {
+            builder.where("title", 'like', `%${title}%`);
+          }
+          if (description) {
+            builder.orWhere("description", 'like', `%${description}%`);
+          }
+        })
         .orderBy("title");
     }
-
+  
     const allTags = await knex("tags");
-    const dishesWithTags = dishes.map(dish =>{
+    const dishesWithTags = dishes.map(dish => {
       const dishTags = allTags.filter(tag => tag.dish_id === dish.id);
-
+  
       return {
         ...dish,
         tags: dishTags
-      }
-    })
-
+      };
+    });
+  
     return response.json(dishesWithTags);
   }
 
@@ -128,10 +144,8 @@ class DishesController {
 
     const parsedTags = JSON.parse(tags);
 
-    // Remove old tags
     await knex("tags").where({ dish_id: id }).del();
 
-    // Insert new tags
     if (Array.isArray(parsedTags)) {
       const tagsInsert = parsedTags.map(name => {
         return {
@@ -140,7 +154,6 @@ class DishesController {
         };
       });
 
-    // Insert only unique tags
     const uniqueTags = Array.from(new Set(tagsInsert.map(tag => tag.name)))
       .map(name => {
         return tagsInsert.find(tag => tag.name === name);

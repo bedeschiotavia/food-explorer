@@ -24,7 +24,9 @@ export const Container = styled.div`
   -moz-box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
 
   >img {
+    cursor: pointer;
     width:5.5rem;
+    margin-bottom:0.8rem;
   }
 
   @media (min-width: ${DEVICE_BREAKPOINTS.LG}){
@@ -58,6 +60,8 @@ export const Title = styled.div`
   display:flex;
   align-items:center;
 
+  margin-bottom:1rem;
+
   line-height:1.5rem;
 
   color: ${({ theme }) => theme.COLORS.LIGHT_300};
@@ -79,6 +83,7 @@ export const Description = styled.div `
 
     display:block;
     font-size:0.875rem;
+    min-height:55px;
   }
 `
 

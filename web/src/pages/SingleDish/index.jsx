@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 import { api } from '../../service/api'
 
-import { CaretLeft, Minus, Plus, Receipt } from "@phosphor-icons/react"
+import { CaretLeft, Minus, Plus } from "@phosphor-icons/react"
 
 import { Button } from "../../components/Button"
 import { ButtonText } from "../../components/ButtonText"
@@ -17,6 +17,9 @@ import { Container, DishContainer, DishDetails, Quantity, QuantityWrapper, Singl
 export function SingleDish() {
 
   const [data, setData] = useState(null);
+
+  const [quantity, setQuantity] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const params = useParams();
 
@@ -33,12 +36,38 @@ export function SingleDish() {
     fetchDish();
   },[])
 
+  useEffect(() => {
+    if (data) {
+      setTotalPrice(data.price);
+    }
+  }, [data]);
+
+  function handleRemoveQty() {
+    setQuantity(prevQuantity => {
+      const newQuantity = Math.max(prevQuantity - 1, 1);
+      setTotalPrice(newQuantity * data.price);
+      return newQuantity;
+    });
+  }
+
+  function handleAddQty() {
+    setQuantity(prevQuantity => {
+      const newQuantity = prevQuantity + 1;
+      setTotalPrice(newQuantity * data.price);
+      return newQuantity;
+    });
+  }
+
   function handleBack() {
     navigate(-1);
   }
 
   function handleEdit() {
     navigate(`/edit-dish/${params.id}`)
+  }
+
+  function handleNoFeature(){
+    alert("Houston, we have a delay! This feature is still in the launch phase. Stay tuned for liftoff!");
   }
 
   return (
@@ -67,11 +96,15 @@ export function SingleDish() {
             
             <SingleDishFooter>
             <QuantityWrapper>
-              <ButtonText icon={Minus}/>
-              <Quantity>01</Quantity>
-              <ButtonText icon={Plus}/>
+              <ButtonText icon={Minus} onClick={handleRemoveQty}/>
+              <Quantity>{String(quantity).padStart(2, '0')}</Quantity>
+              <ButtonText icon={Plus} onClick={handleAddQty}/>
             </QuantityWrapper>
-            <Button icon={Receipt} title="order" price="25,00€"/>
+            <Button
+              title="include"
+              price={totalPrice.toLocaleString('pt-PT', { minimumFractionDigits: 2 })}
+              onClick={handleNoFeature}
+              />
             <Button title="edit dish" onClick={handleEdit}/>
             </SingleDishFooter>
           </DishDetails>

@@ -95,7 +95,7 @@ export function NewDish() {
     try {
       await api.post('/dishes', formData);
       alert('Dish successfully created');
-      navigate(-1);
+      navigate("/");
     } catch (error) {
       console.error('Error creating dish:', error);
       alert('There was an error creating the dish. Please try again.');
