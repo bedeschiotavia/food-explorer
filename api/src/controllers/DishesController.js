@@ -7,6 +7,8 @@ class DishesController {
     const { title, category, price, description, tags } = request.body;
     let imageFile;
 
+    console.log(request.file);
+
     if (request.file) {
       const { filename } = request.file;
       imageFile = await diskStorage.saveFile(filename);
@@ -96,17 +98,20 @@ class DishesController {
 
   async update(request, response) {
     const { id } = request.params
-    const { title, description, category, price } = request.body
+    const { title, description, category, price, tags} = request.body
     let imageFile;
 
+    const dish = await knex("dishes").where({ id }).first()
+
     if (request.file) {
+
+      if (dish.image) {
+        await diskStorage.deleteFile(dish.image);
+      }
       const { filename } = request.file;
       imageFile = await diskStorage.saveFile(filename);
     }
 
-    console.log(imageFile, request.file);
-
-    const dish = await knex("dishes").where({ id }).first()
 
     if (!dish) {
       throw new AppError("Dish not found", 404)
@@ -117,29 +122,32 @@ class DishesController {
         description: description ?? dish.description,
         category: category ?? dish.category,
         price: price ?? dish.price,
-        image: imageFile,
         updated_at: knex.fn.now(),
+        image: imageFile ?? dish.image
     })
 
-    
+    const parsedTags = JSON.parse(tags);
 
-    
+    // Remove old tags
+    await knex("tags").where({ dish_id: id }).del();
 
-    // if (tags) {
-    //   await knex("tags").where({ dish_id: id }).delete()
+    // Insert new tags
+    if (Array.isArray(parsedTags)) {
+      const tagsInsert = parsedTags.map(name => {
+        return {
+          dish_id: id,
+          name
+        };
+      });
 
-    //   const tagsInsert = tags.map((name) => {
-    //     return {
-    //       dish_id: id,
-    //       name,
-    //       created_by: dish.created_by,
-    //     }
-    //   })
+    // Insert only unique tags
+    const uniqueTags = Array.from(new Set(tagsInsert.map(tag => tag.name)))
+      .map(name => {
+        return tagsInsert.find(tag => tag.name === name);
+      });
 
-    //   await knex("tags").insert(tagsInsert)
-    // }
-
-    
+      await knex("tags").insert(uniqueTags);
+    }
 
     return response.json()
   }

@@ -14,13 +14,13 @@ import { Container, DishFooter, WrapperFileInput, WrapperTag } from './styles';
 export function EditDish() {
   const [data, setData] = useState(null);
 
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('');
+  const [price, setPrice] = useState('');
+  const [description, setDescription] = useState('');
 
   const [image, setImage] = useState(null);
-  const [dishImage, setDishImage] = useState("");
+  const [dishImage, setDishImage] = useState('');
   
   const [tags, setTags] = useState([]);
   const [newTag, setNewTag] = useState('');
@@ -75,28 +75,34 @@ export function EditDish() {
     setTags(prevState => prevState.filter(tag => tag !== deleted));
   }
 
-  async function handleUpdateDish() {
+  async function handleUpdateDish(event) {
   
-    const data = {
-      title,
-      category,
-      price,
-      description,
-    };
+    event.preventDefault();
 
-    const formData = new FormData ();
+    const formData = new FormData();
+
+    if (newTag) {
+      return alert("You left an ingredient but didn't add it! If yes, press the plus symbol to add it.");
+    }
+
+    formData.append('title', title);
+    formData.append('category', category);
+    formData.append('price', price);
+    formData.append('description', description);
+    formData.append("tags", JSON.stringify(tags));
     formData.append('image', image);
 
-    console.log(image, formData);
-  
+    console.log(image);
+
     try {
-      // Then, update the rest of the dish data
-      await api.put(`/dishes/${params.id}`, data);
+      await api.put(`/dishes/${params.id}`, formData,{
+        headers: { "Content-Type": "multipart/form-data"},
+      });
       alert('Dish successfully updated');
-      navigate(-1);
+      navigate(`/dish/${params.id}`);
     } catch (error) {
-      console.error('Error updating dish:', error);
-      alert('There was an error updating the dish. Please try again.');
+      console.error('Error creating dish:', error);
+      alert('There was an error creating the dish. Please try again.');
     }
   }
 
