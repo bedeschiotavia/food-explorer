@@ -3,7 +3,11 @@ import { ActionLogo, CardFooter, Container, Description, Price, Quantity, Quanti
 
 import { api } from "../../service/api";
 
-import { CaretRight, HeartStraight, Minus, Plus } from "@phosphor-icons/react";
+import { useAuth } from '../../hooks/auth';
+
+import { USER_ROLE } from '../../utils/roles';
+
+import { CaretRight, HeartStraight, Minus, PencilSimple, Plus } from "@phosphor-icons/react";
 
 import { Button } from "../Button";
 import { ButtonText } from "../ButtonText";
@@ -12,6 +16,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 export function Card({handleDishClick,data}) {
+
+  const { user } = useAuth();
 
   const imageURL = data && `${api.defaults.baseURL}/files/${data.image}`;
 
@@ -53,7 +59,10 @@ export function Card({handleDishClick,data}) {
   return (
     <Container>
       <ActionLogo>
-        <ButtonText icon={HeartStraight} onClick={handleNoFeature}/>
+        {[USER_ROLE.CUSTOMER].includes(user.role) &&
+          <ButtonText icon={HeartStraight} onClick={handleNoFeature}/>}
+        {[USER_ROLE.ADMIN].includes(user.role) &&
+          <ButtonText icon={PencilSimple} onClick={handleEditClick}/>}
       </ActionLogo>
       <img
         onClick={() => handleDishClick(data.id)}
@@ -65,15 +74,16 @@ export function Card({handleDishClick,data}) {
       <Description>{data.description}</Description>
       <Price>{totalPrice.toLocaleString('pt-PT', { minimumFractionDigits: 2 })}€</Price>
 
+      {[USER_ROLE.CUSTOMER].includes(user.role) &&
       <CardFooter>
         <QuantityWrapper>
           <ButtonText icon={Minus} onClick={handleRemoveQty}/>
           <Quantity>{String(quantity).padStart(2, '0')}</Quantity>
           <ButtonText icon={Plus} onClick={handleAddQty}/>
         </QuantityWrapper>
-        <Button title="incluir" onClick={handleNoFeature}></Button>
-        <Button title="edit" onClick={handleEditClick}></Button>
-      </CardFooter>
+        
+          <Button title="add" onClick={handleNoFeature}></Button>
+      </CardFooter>}
     </Container>
   )
 }

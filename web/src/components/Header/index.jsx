@@ -9,6 +9,8 @@ import { MobileMenu } from "../MobileMenu";
 
 import { useAuth } from '../../hooks/auth';
 
+import { USER_ROLE } from '../../utils/roles';
+
 import { Link, useNavigate } from 'react-router-dom';
 
 import { ButtonWrapper, Container, InputWrapper, Logo, LogoMobile, LogoWrapper, Logout, NavContainer } from "./styles";
@@ -19,18 +21,21 @@ import { List, MagnifyingGlass, Receipt, SignOut } from "@phosphor-icons/react";
 
 // eslint-disable-next-line react/prop-types
 export function Header ({setSearch}) {
-  const [menuIsOpen, setMenuIsOpen] = useState(false)
 
-  const { signOut } = useAuth()
-  const navigate = useNavigate()
+  const { user } = useAuth();
+
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
+
+  const { signOut } = useAuth();
+  const navigate = useNavigate();
 
   function handleSignOut(){
-    navigate("/")
-    signOut()
+    navigate("/");
+    signOut();
   }
 
   function handleNoFeature(){
-    alert("Houston, we have a delay! This feature is still in the launch phase. Stay tuned for liftoff!")
+    alert("Houston, we have a delay! This feature is still in the launch phase. Stay tuned for liftoff!");
   }
 
   return(
@@ -46,12 +51,16 @@ export function Header ({setSearch}) {
 
         <LogoWrapper>
           <Logo>
-            <Link to="/"><img src={foodexplorerAdminLogo} alt="foodexplorer logo" /></Link>
+            {[USER_ROLE.ADMIN].includes(user.role) &&
+              <Link to="/"><img src={foodexplorerAdminLogo} alt="foodexplorer logo" /></Link>}
+            {[USER_ROLE.CUSTOMER].includes(user.role) &&
+              <Link to="/"><img src={foodexplorerLogo} alt="foodexplorer logo" /></Link>}
           </Logo>
           <LogoMobile>
-            <Link><img src={foodexplorerLogo} alt="foodexplorer logo" /></Link>
+            <Link to="/"><img src={foodexplorerLogo} alt="foodexplorer logo" /></Link>
           </LogoMobile>
-          <span>admin</span>
+          {[USER_ROLE.ADMIN].includes(user.role) &&
+            <span>admin</span>}
         </LogoWrapper>
 
         <InputWrapper>
@@ -63,8 +72,10 @@ export function Header ({setSearch}) {
         </InputWrapper>
 
         <ButtonWrapper>
-          <Link to="/new"><Button title="New Dish"/></Link>
-          <Button icon={Receipt} title="Order" onClick={handleNoFeature}/>
+          {[USER_ROLE.ADMIN].includes(user.role) &&
+            <Link to="/new"><Button title="New Dish"/></Link>}
+          {[USER_ROLE.CUSTOMER].includes(user.role) &&
+            <Button icon={Receipt} title="Order" onClick={handleNoFeature}/>}
         </ButtonWrapper>
         
         <Logout onClick={handleSignOut}>

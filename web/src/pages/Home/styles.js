@@ -71,6 +71,17 @@ export const Hero = styled.div`
   background-image: ${({ theme }) => theme.COLORS.GRADIENTS_200};
 `
 
+export const SearchOnMobile = styled.div`
+margin-top:3rem;
+display:block;
+
+@media (min-width: ${DEVICE_BREAKPOINTS.LG}) {
+    display:none;
+  }
+
+`
+
+
 export const ImageMobile = styled.div`
 
   width: 85%;

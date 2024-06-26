@@ -1,6 +1,6 @@
-import foodexplorerFooterLogo from "../../assets/foodexplorer-footerlogo.svg"
+import foodexplorerFooterLogo from "../../assets/foodexplorer-footerlogo.svg";
 
-import { Container, FooterContainer } from "./styles"
+import { Container, FooterContainer } from "./styles";
 
 export function Footer() {
   return(

@@ -1,12 +1,26 @@
 /* eslint-disable react/prop-types */
-import { MagnifyingGlass, X } from "@phosphor-icons/react"
+import { X } from "@phosphor-icons/react";
 
-import { Container, MobileHeader, MobileNav, NavWrapper } from "./styles"
+import { Container, MobileHeader, MobileNav, NavWrapper } from "./styles";
 
-import { ButtonText } from "../ButtonText"
-import { Input } from "../Input"
+import { useAuth } from '../../hooks/auth';
 
-export function MobileMenu({setSearch, menuIsOpen, onCloseMenu}){
+import { USER_ROLE } from '../../utils/roles';
+
+import { Link, useNavigate } from 'react-router-dom';
+
+import { ButtonText } from "../ButtonText";
+
+export function MobileMenu({menuIsOpen, onCloseMenu}){
+  const { user } = useAuth();
+  const { signOut } = useAuth();
+
+  const navigate = useNavigate();
+
+  function handleSignOut(){
+    navigate("/");
+    signOut();
+  }
 
   return (
     <Container data-menu-is-open={menuIsOpen}>
@@ -17,10 +31,10 @@ export function MobileMenu({setSearch, menuIsOpen, onCloseMenu}){
           title="Menu"/>
       </MobileHeader>
       <NavWrapper>
-        <Input icon={MagnifyingGlass} placeholder="Search for dishes or ingredients"  setSearch={setSearch} />
         <MobileNav>
-          <a href="">New dish</a>
-          <a href="">Logout</a>
+          {[USER_ROLE.ADMIN].includes(user.role) &&
+            <Link to="/">New dish</Link>}
+          <Link onClick={handleSignOut}>Sing out </Link>
         </MobileNav>
       </NavWrapper>
     </Container>

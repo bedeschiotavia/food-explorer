@@ -1,20 +1,26 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { api } from '../../service/api'
+import { useAuth } from '../../hooks/auth';
 
-import { CaretLeft, Minus, Plus } from "@phosphor-icons/react"
+import { USER_ROLE } from '../../utils/roles';
 
-import { Button } from "../../components/Button"
-import { ButtonText } from "../../components/ButtonText"
-import { Footer } from "../../components/Footer"
-import { Header } from "../../components/Header"
-import { Tag } from "../../components/Tag"
+import { api } from '../../service/api';
 
-import { Container, DishContainer, DishDetails, Quantity, QuantityWrapper, SingleDishFooter, TagsWrapper } from "./styles"
+import { CaretLeft, Minus, Plus } from "@phosphor-icons/react";
+
+import { Button } from "../../components/Button";
+import { ButtonText } from "../../components/ButtonText";
+import { Footer } from "../../components/Footer";
+import { Header } from "../../components/Header";
+import { Tag } from "../../components/Tag";
+
+import { Container, DishContainer, DishDetails, Quantity, QuantityWrapper, SingleDishFooter, TagsWrapper } from "./styles";
 
 export function SingleDish() {
+
+  const { user } = useAuth();
 
   const [data, setData] = useState(null);
 
@@ -95,17 +101,22 @@ export function SingleDish() {
             }
             
             <SingleDishFooter>
-            <QuantityWrapper>
-              <ButtonText icon={Minus} onClick={handleRemoveQty}/>
-              <Quantity>{String(quantity).padStart(2, '0')}</Quantity>
-              <ButtonText icon={Plus} onClick={handleAddQty}/>
-            </QuantityWrapper>
-            <Button
-              title="include"
-              price={totalPrice.toLocaleString('pt-PT', { minimumFractionDigits: 2 })}
-              onClick={handleNoFeature}
-              />
-            <Button title="edit dish" onClick={handleEdit}/>
+            {[USER_ROLE.CUSTOMER].includes(user.role) &&
+              <>
+                <QuantityWrapper>
+                  <ButtonText icon={Minus} onClick={handleRemoveQty}/>
+                  <Quantity>{String(quantity).padStart(2, '0')}</Quantity>
+                  <ButtonText icon={Plus} onClick={handleAddQty}/>
+                </QuantityWrapper>
+              <Button
+                title="add"
+                price={totalPrice.toLocaleString('pt-PT', { minimumFractionDigits: 2 })}
+                onClick={handleNoFeature}
+                />
+              </>}
+
+            {[USER_ROLE.ADMIN].includes(user.role) &&
+              <Button title="edit dish" onClick={handleEdit}/>}
             </SingleDishFooter>
           </DishDetails>
         </DishContainer>

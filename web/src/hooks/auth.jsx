@@ -38,8 +38,8 @@ function AuthProvider ({ children }){
   }
 
   useEffect(()=>{
-    const token = localStorage.getItem("@rocketnotes:token")
-    const user = localStorage.getItem("@rocketnotes:user")
+    const token = localStorage.getItem("@foodexplorer:token");
+    const user = localStorage.getItem("@foodexplorer:user");
 
     if (token && user) {
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`

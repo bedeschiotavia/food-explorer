@@ -1,3 +1,4 @@
+import { MagnifyingGlass } from "@phosphor-icons/react";
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 
@@ -10,9 +11,10 @@ import heroImage from "../../assets/hero-image2.png";
 import { Card } from '../../components/Card';
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
+import { Input } from '../../components/Input';
 import { api } from "../../service/api";
 
-import { CategoryTitle, Container, Hero, Image, ImageMobile, SliderContainer } from "./styles";
+import { CategoryTitle, Container, Hero, Image, ImageMobile, SearchOnMobile, SliderContainer } from "./styles";
 
 export function Home() {
   const [search, setSearch] = useState('');
@@ -53,7 +55,9 @@ export function Home() {
             <p>Enjoy carefully prepared dishes with special ingredients</p>
           </div>
         </Hero>
-
+        <SearchOnMobile>
+          <Input icon={MagnifyingGlass} placeholder="Search for dishes or ingredients"  setSearch={setSearch} />
+        </SearchOnMobile>
         {dishes.meals.length > 0 && (
           <>
             <CategoryTitle>Meals</CategoryTitle>
