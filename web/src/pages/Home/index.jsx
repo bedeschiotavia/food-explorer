@@ -68,7 +68,7 @@ export function Home() {
                   gap: '4rem',
                   type: 'loop',
                   perPage: Math.min(dishes.meals.length, 3),
-                  focus: 'center',
+                  focus: 0,
                   pagination: false,
                   breakpoints: {
                     640: {
@@ -106,7 +106,7 @@ export function Home() {
                   gap: '4rem',
                   type: 'loop',
                   perPage: Math.min(dishes.desserts.length, 3),
-                  focus: 'center',
+                  focus: 0,
                   pagination: false,
                   breakpoints: {
                     640: {
@@ -144,7 +144,7 @@ export function Home() {
                   gap: '4rem',
                   type: 'loop',
                   perPage: Math.min(dishes.beverages.length, 3),
-                  focus: 'center',
+                  focus: 0,
                   pagination: false,
                   breakpoints: {
                     640: {
