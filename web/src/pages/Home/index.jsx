@@ -67,7 +67,7 @@ export function Home() {
                   rewind: true,
                   gap: '4rem',
                   type: 'loop',
-                  perPage: Math.min(dishes.meals.length, 3), // Ensure perPage is at most the number of meals or 3
+                  perPage: Math.min(dishes.meals.length, 3),
                   focus: 'center',
                   pagination: false,
                   breakpoints: {
