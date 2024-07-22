@@ -2,7 +2,7 @@
 
 ![pages-foodexplorer](https://github.com/bedeschiotavia/food-explorer/assets/74593495/6413d3c5-0f93-4f44-ac43-afdb4cddd1b7)
 
-## Access online project [here](https://food-explorer-eight.vercel.app/).
+## Access online project <a href="https://food-explorer-eight.vercel.app/" target="_blank">here</a> | ⚠️ The backend uses free hosting with Render, so loading times might be slow...
 
 <a align="left" href="#about-the-project">About</a> |
 <a align="left" href="#technologies">Technologies</a> |
