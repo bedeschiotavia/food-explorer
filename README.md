@@ -14,7 +14,7 @@
 
 ## About the project
 
-The Food Explorer project is an interactive menu for a fictional restaurant, developed as a comprehensive application with both front-end and back-end components. This project was built using the technologies learned in the Explorer program and follows the layout provided in Figma, which includes a complete application design from dish viewing to payment, as well as a mobile version of the project.
+The Food Explorer project is an interactive menu for a fictional restaurant, developed as a comprehensive application with both front-end and back-end components. This project was built using the technologies learned in the Explorer program and follows the layout provided in Figma, as well as a mobile version of the project.
 
 Food Explorer has two personas: the admin and the user.
 
